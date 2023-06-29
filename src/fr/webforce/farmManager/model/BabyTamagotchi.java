@@ -1,84 +1,58 @@
 package fr.webforce.farmManager.model;
 
-import fr.webforce.farmManager.interfaces.ITamagochi;
-
-abstract public class Tamagotchi implements ITamagochi {
+final public class BabyTamagotchi extends Tamagotchi{
 	
-
-	// private
-	// public
-	// protected	
 	protected String name;
 	
 	protected String type;
 	
 	//s'il atteint 0, fin du jeu
-	protected int pv = 10;
+	protected int pv = 5;
 	
-	//s'il atteint 10, fin du jeu
+	//s'il atteint 5, fin du jeu
 	protected int hungerLevel = 0;
-	
-	//s'il atteint 0, fin du jeu
-	protected int happyLevel = 10;
 
-	public Tamagotchi(String name, String type, int pv, int hungerLevel, int happyLevel) {
+	public BabyTamagotchi(String name, String type, int pv, int hungerLevel, int happyLevel) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.pv = pv;
 		this.hungerLevel = hungerLevel;
-		this.happyLevel = happyLevel;
 	}
 	
-	public Tamagotchi(String name, String type) {
-		this.name = name;
-		this.type = type;
-		this.pv = 10;
+	public BabyTamagotchi(String name, String type) {
+		this.pv = 5;
 		this.hungerLevel = 0;
-		this.happyLevel = 10;
 	}
 
-	public Tamagotchi() {
+	public BabyTamagotchi() {
 	}
 	
-	@Override
 	public void manger() {
-		this.hungerLevel -= 2;
-		this.happyLevel += 2;
-		this.pv -= 1;
+		this.hungerLevel -= 1;
+		this.pv -= 2;
 		this.checkStatus();
 	}
-
-	@Override
+	
 	public void dormir() {
 		this.hungerLevel += 2;
-		this.happyLevel -= 2;
 		this.pv += 1;
 		this.checkStatus();
 	}
 	
 	public void statistic() {
 		System.out.println("Voici les information de " + this.name + " : ");
-		System.out.println("Joie : " + this.happyLevel + " Faim : " + this.hungerLevel + "Vie : " + this.pv);
+		System.out.println(" Faim : " + this.hungerLevel + "Vie : " + this.pv);
 	}
 
     // Méthode isDead()
     public boolean isDead() {
-        return (hungerLevel >= 10 || happyLevel <= 0 || pv <= 0);
+        return (hungerLevel >= 5 || pv <= 0);
     }
-    
-
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "Je surchage toString";
-	}
-
 
     // Méthode checkStatus() pour l'alerte
     private void checkStatus() {
-    	if (hungerLevel >= 8 || happyLevel <= 2 || pv <= 2) {
+    	if (hungerLevel >= 4 || pv <= 2) {
             System.out.println("Attention ! " + name + " est sur le point de mourir !");
         }
 		this.statistic();
@@ -105,14 +79,6 @@ abstract public class Tamagotchi implements ITamagochi {
 		this.pv = pv;
 	}
 
-	public int getHappyLevel() {
-		return happyLevel;
-	}
-
-	public void setHappyLevel(int happyLevel) {
-		this.happyLevel = happyLevel;
-	}
-
 	public void setName(String name) {
 		if(name != null) {
 			this.name = name;
@@ -127,4 +93,5 @@ abstract public class Tamagotchi implements ITamagochi {
 		this.hungerLevel = hungerLevel;
 	}
 	
+
 }
